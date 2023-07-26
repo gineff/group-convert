@@ -1,17 +1,20 @@
-type Result = Record<string, string>
-type RestArgv = string
-export type ResultArgsUnion = [Result, RestArgv]
+type Extracted = Record<string, string>
+type RestArgv = string[]
+export type ResultArgsUnion = [Extracted, RestArgv]
 
-export const extractArgs = (argv: string, flags: string[]): ResultArgsUnion => {
-  const result: Result = {}
+export default (argv: string[], flags: string[]): ResultArgsUnion => {
+  const extracted: Extracted = {}
   const restArgv = flags.reduce((accumulator, flag) => {
-    const reg = new RegExp(`${flag}\s+(\S+)`, 'g')
-    const match = argv.match(reg)
-    if (!match) return accumulator
-    const [, value] = Array.from(match)
-    result[flag] = value
-    return accumulator.replace(reg, '')
-  },'')
+    const index = accumulator.indexOf(flag)
+    if (~index) {
+      const [_flag, value] = accumulator.splice(
+        index,
+        flag.startsWith('-') ? 2 : 1
+      )
+      extracted[flag] = value
+    }
+    return accumulator
+  }, argv)
 
-  return [result, restArgv]
+  return [extracted, restArgv]
 }
