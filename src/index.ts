@@ -86,14 +86,8 @@ const startProcess = async () => {
       converters.push(converter)
     }
 
-    while (converters.length) {
-      const promises: Promise<unknown>[] = []
-      const streams = converters.splice(0, +args['-s'] || 3)
-
-      streams.forEach(stream => {
-        promises.push(stream.start())
-      })
-      await Promise.all(promises)
+    for (const converter of converters) {
+      await converter.start()
     }
   } catch (e) {
     console.log('error', e)
