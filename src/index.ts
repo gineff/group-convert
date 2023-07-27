@@ -20,6 +20,7 @@ type Progress = {
 class Converter {
   file!: string
   options: string[] = []
+  range = [0, 0]
   progress = {} as Progress
   constructor(props: ConverterProps) {
     Object.assign(this, props)
@@ -53,6 +54,26 @@ class Converter {
         }
       })
     })
+  }
+  toString() {
+    const width = 70
+    let progressText = ''
+    let percentage = 0
+
+    try {
+      const value = Math.abs(this.progress.outTimeMs) / 1000000 || 0
+      percentage = (value / this.range[1]) * 100
+      const progress = Math.round((width * percentage) / 100)
+      progressText = '='.repeat(progress).padEnd(width, ' ')
+    } catch (e) {
+      console.log(e)
+    }
+
+    return `[${progressText}] | ${(
+      this.range[0] +
+      '-' +
+      this.range[1]
+    ).padStart(7, ' ')} | ${percentage.toFixed(2)}% \r\n`
   }
 }
 
