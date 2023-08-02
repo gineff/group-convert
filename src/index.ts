@@ -26,7 +26,6 @@ class Converter {
     Object.assign(this, props)
   }
   start() {
-    console.log('start', this)
     return new Promise((resolve, reject) => {
       const ffmpeg = spawn('ffmpeg', this.options)
 
@@ -79,11 +78,9 @@ class Converter {
 
 const parseFileOutput = (filePath: string, _output: string) => {
   const { root, dir, name, ext } = path.parse(filePath)
-  console.log('root', root, 'dir', dir)
   const { root: _root, dir: _dir, name: _name, ext: _ext } = path.parse(_output)
 
   const outputFileName = `${_name.replace('*', name)}${_ext.replace('.*', ext)}`
-  console.log('outputFileName', outputFileName)
 
   if (_dir === '*') {
     return path.join(root, dir, outputFileName)
@@ -92,7 +89,6 @@ const parseFileOutput = (filePath: string, _output: string) => {
 }
 
 const startProcess = async () => {
-  console.log(process.argv)
   const [args, restArg] = extractArgs(process.argv.slice(2), ['-i'])
   const files = await glob(args['-i'])
   const output: string = restArg.splice(-1)[0]
