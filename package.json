@@ -1,5 +1,5 @@
 {
-  "name": "group-convert",
+  "name": "@ffmpek-kit/group-converter",
   "version": "1.0.0",
   "description": "convert several video fragment with ffmpeg",
   "main": "dist/index.js",
@@ -10,7 +10,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "group-convert": "./dist/index.js"
+    "group-convert": "dist/index.js"
   },
   "author": "gineff <canone@inbox.ru>",
   "license": "MIT",
@@ -32,5 +32,22 @@
   "dependencies": {
     "glob": "10.3.3",
     "ini": "4.1.1"
-  }
+  },
+  "types": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gineff/group-converter.git"
+  },
+  "keywords": [
+    "ffmpeg",
+    "ffmpeg-kit",
+    "group",
+    "video",
+    "converter",
+    "convert"
+  ],
+  "bugs": {
+    "url": "https://github.com/gineff/group-converter/issues"
+  },
+  "homepage": "https://github.com/gineff/group-converter#readme"
 }
